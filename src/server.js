@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
+
 require('dotenv').config();
 
 const app = express();
@@ -16,9 +19,10 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('Could not connect to MongoDB', err));
 
 //routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/doctors', require('./routes/doctorRoutes'));
-app.use('/api/appointments', require('./routes/appointmentRoutes'));
+app.use('/api/auth', require('../routes/authRoutes'));
+app.use('/api/doctors', require('../routes/doctorRoutes'));
+app.use('/api/appointments', require('../routes/appointmentRoutes'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // app.use('/api/users', require('./routes/userRoutes'));
 // app.use('/api/doctors', require('./routes/doctorRoutes'));
 // app.use('/api/appointments', require('./routes/appointmentRoutes'));

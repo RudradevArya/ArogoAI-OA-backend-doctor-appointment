@@ -3,12 +3,21 @@ const Doctor = require('../models/Doctor');
 exports.createProfile = async (req, res) => {
   try {
     const { specialty, experience, location } = req.body;
-    const doctor = new Doctor({
-      user: req.user.id, 
+    
+    // Check if a doctor profile already exists for this user
+    let doctor = await Doctor.findOne({ user: req.user._id });
+    
+    if (doctor) {
+      return res.status(400).json({ message: 'Doctor profile already exists for this user' });
+    }
+
+    doctor = new Doctor({
+      user: req.user._id,
       specialty,
       experience,
       location
     });
+    
     await doctor.save();
     res.status(201).json({ message: 'Doctor profile created successfully', doctor });
   } catch (error) {
