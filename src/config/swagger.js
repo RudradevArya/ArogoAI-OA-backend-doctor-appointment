@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:5000',
+        url: 'https://arogoai-oa-backend-doctor-appointment.onrender.com' || 'http://localhost:5000',
         description: 'Development server',
       },
     ],
