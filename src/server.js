@@ -10,7 +10,10 @@ require('dotenv').config();
 const app = express();
 
 //mid
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'https://rudradev-arogo-ai-oa-frontend-doctor-appointment.vercel.app/' || 'http://localhost:3000'
+}));
 app.use(express.json());
 
 
