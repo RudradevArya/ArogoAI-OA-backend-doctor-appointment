@@ -8,7 +8,7 @@ const app = express();
 //mid
 app.use(cors());
 app.use(express.json());
-app.use('/api/auth', require('./routes/authRoutes'));
+
 
 //conn to mongo
 mongoose.connect(process.env.MONGODB_URI)
@@ -16,6 +16,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('Could not connect to MongoDB', err));
 
 //routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/doctors', require('./routes/doctorRoutes'));
 // app.use('/api/users', require('./routes/userRoutes'));
 // app.use('/api/doctors', require('./routes/doctorRoutes'));
 // app.use('/api/appointments', require('./routes/appointmentRoutes'));
